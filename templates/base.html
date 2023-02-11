@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+{% load static %}
+<head>
+   {% include "header.html" %}   
+</head>
+
+<body>
+    <div class="h-screen w-full">
+
+        
+            <section class="bg-white dark:bg-gray-800">
+                {% block content %}
+                {% endblock content %}
+            </section>
+        
+    </div>
+
+    {% include "scripts.html" %} 
+</body>
+
+</html>

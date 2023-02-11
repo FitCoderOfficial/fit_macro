@@ -1,4 +1,5 @@
 from django.db import models
+from members.models import Member
 
 UNIT_CHOICES = [
         ('g', 'g'),
@@ -37,3 +38,10 @@ class Food(models.Model):
     
     def __str__(self):
         return self.name
+    
+
+class FoodLog(models.Model):
+    user = models.ForeignKey(Member, on_delete=models.CASCADE)
+    food = models.ForeignKey(Food, on_delete=models.CASCADE)
+    serving_size = models.PositiveIntegerField()
+    date_added = models.DateField(auto_now_add=True)
