@@ -16,7 +16,7 @@ class Category(models.Model):
 
 class Food(models.Model):
        
-
+    image = models.ImageField(upload_to='food_images', default='default_food.jpg')
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     year_of_manufacture = models.PositiveIntegerField(blank=True, null=True)
@@ -43,5 +43,5 @@ class Food(models.Model):
 class FoodLog(models.Model):
     user = models.ForeignKey(Member, on_delete=models.CASCADE)
     food = models.ForeignKey(Food, on_delete=models.CASCADE)
-    serving_size = models.PositiveIntegerField()
+    serving_size = models.PositiveIntegerField(default=1)
     date_added = models.DateField(auto_now_add=True)

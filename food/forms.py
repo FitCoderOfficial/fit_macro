@@ -13,7 +13,7 @@ class FoodForm(forms.ModelForm):
         
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['category'].queryset = Category.objects.all().order_by('name')
+        self.fields['category'].queryset = Food.objects.all().order_by('category__name', 'name')
         self.fields['name'].queryset = Food.objects.none()
         
         if 'category' in self.data:
