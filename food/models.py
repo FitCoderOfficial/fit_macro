@@ -25,8 +25,8 @@ class Food(models.Model):
     detailed_classification = models.CharField(max_length=100)
     serving_size = models.PositiveIntegerField()
     serving_unit = models.CharField(choices=UNIT_CHOICES, max_length=2)
-    total_contents = models.PositiveIntegerField(blank=True, null=True)
-    total_calories = models.FloatField(blank=True, null=True)
+    contents = models.PositiveIntegerField(blank=True, null=True)
+    calories = models.FloatField(blank=True, null=True)
     protein = models.FloatField(blank=True, null=True)
     fat = models.FloatField(blank=True, null=True)
     carbohydrates = models.FloatField(blank=True, null=True)
@@ -40,8 +40,31 @@ class Food(models.Model):
         return self.name
     
 
-class FoodLog(models.Model):
-    user = models.ForeignKey(Member, on_delete=models.CASCADE)
-    food = models.ForeignKey(Food, on_delete=models.CASCADE)
-    serving_size = models.PositiveIntegerField(default=1)
-    date_added = models.DateField(auto_now_add=True)
+class FoodItem(models.Model):
+    user = models.ForeignKey(Member,on_delete=models.CASCADE)
+    ordered = models.BooleanField(default=False)
+    item = models.ForeignKey(Food, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+
+    def __str__(self):
+        return f"{self.quantity} of {self.item.name}"
+
+    def get_total_calories(self):
+        return self.quantity * self.item.calories
+
+
+class Log_Food(models.Model):
+    user = models.ForeignKey(Member,on_delete=models.CASCADE)
+    items = models.ManyToManyField(FoodItem)
+    start_date = models.DateTimeField(auto_now_add=True)
+    logged_date = models.DateTimeField()
+    logged = models.BooleanField(default=False)
+    
+    def __str__(self):
+        return self.user.name
+
+    def get_total(self):
+        total = 0
+        for logged_food in self.items.all():
+            total += logged_food.get_total_calories()
+        return total

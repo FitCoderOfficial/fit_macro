@@ -16,17 +16,17 @@
                   </h5>
               </div>
               <div class="flex flex-col flex-shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
-              <form method="post" action="{% url 'food:log_food' %}">
+              {% comment %} <form method="POST" action="{% url 'food:add-to-cart' %}">
                   {% csrf_token %}
                   <input type="hidden" name="action" value="log_food">
                   <input type="hidden" name="foods" id="selected_foods" value="">
-                  <button type="submit" class="flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                  <button type="submit" value="add_to_log" class="flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
                       <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                           <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
                       </svg>
                       먹은 음식으로 기록하기
                   </button>
-                <input type="hidden" name="next" value="{% url 'food:food-list' %}">
+                <input type="hidden" type="number" name="quantity" id="quantity" min="1" value="1" required> {% endcomment %}
               </div>
           </div>
           <div class="overflow-x-auto">
@@ -55,8 +55,8 @@
                       <tr class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
                           <td class="w-4 px-4 py-3">
                               <div class="flex items-center">
-                                  <input id="checkbox-{{ food.id }}" type="checkbox" onclick="event.stopPropagation()" name="foods" value="{{ food.id }}" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                  <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
+                                  <input id="checkbox-{{ food.id }}" type="checkbox" onclick="event.stopPropagation()" name="food" value="{{ food.id }}" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                  <label for="checkbox-{{ food.id }}" class="sr-only">checkbox</label>
                               </div>
                           </td>
                           <th scope="row" class="flex items-center px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
