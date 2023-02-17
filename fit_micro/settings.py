@@ -27,9 +27,12 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 
-    #package
+    #packages
     'allauth',
     'allauth.account',
+
+    #apps
+    'members',
 
 ]
 
@@ -111,6 +114,8 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
+AUTH_USER_MODEL = 'members.Member'
+
 
 
 STATIC_URL = '/static/'
@@ -119,3 +124,5 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+
